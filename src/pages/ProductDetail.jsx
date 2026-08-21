@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient';
 import { ShoppingBag, ArrowLeft, Check, Sparkles, Truck, ShieldCheck, RefreshCw, Ruler, AlertCircle, Award } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import SizeGuideModal from '../components/SizeGuideModal';
-import confetti from 'canvas-confetti';
+//import confetti from 'canvas-confetti';
 
 const ProductDetail = ({ onAddToCart }) => {
   const { productId } = useParams();
