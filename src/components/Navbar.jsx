@@ -30,9 +30,11 @@ const Navbar = ({ profile, cartCount, onCartClick, onAuthClick, onLogout }) => {
         <div style={styles.container}>
           {/* Logo */}
           <Link to="/" style={styles.logo} onClick={() => setMobileMenuOpen(false)}>
-            <div style={styles.logoIconBg}>
-              <Sparkles size={16} color="#000" />
-            </div>
+            <img 
+              src="https://tse3.mm.bing.net/th/id/OIP.8CFE3y_M1_lCUFlj2gP1mQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
+              alt="เสื้อเฮีย Logo" 
+              style={styles.logoImg} 
+            />
             <div style={styles.logoTextGroup}>
               <span style={styles.logoTextMain}>เสื้อเฮีย</span>
               <span style={styles.logoTextSub}>PARIS / TOKYO</span>
@@ -181,14 +183,13 @@ const styles = {
     gap: '10px',
     textDecoration: 'none',
   },
-  logoIconBg: {
-    width: '32px',
-    height: '32px',
-    borderRadius: '6px',
-    background: '#ffffff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  logoImg: {
+    width: '34px',
+    height: '34px',
+    borderRadius: '8px',
+    objectFit: 'cover',
+    border: '1px solid var(--glass-border)',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
   },
   logoTextGroup: {
     display: 'flex',

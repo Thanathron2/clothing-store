@@ -7,10 +7,12 @@ const Footer = () => {
       <div style={styles.content}>
         <div style={styles.branding}>
           <div style={styles.logo}>
-            <div style={styles.logoIconBg}>
-              <Sparkles size={16} color="#fff" />
-            </div>
-            <span style={styles.logoText}>เสื้อเฮีย <span style={{ color: 'var(--primary)' }}></span></span>
+            <img 
+              src="https://tse3.mm.bing.net/th/id/OIP.8CFE3y_M1_lCUFlj2gP1mQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
+              alt="เสื้อเฮีย Logo" 
+              style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover' }} 
+            />
+            <span style={styles.logoText}>เสื้อเฮีย</span>
           </div>
           <p style={styles.desc}>
             แบรนด์เสื้อผ้าแฟชั่นสตรีทลักชูรีอย่างเป็นทางการ ออกแบบและตัดเย็บทรงพิเศษ ผ้าเกรดพรีเมียม 100% สั่งซื้อง่าย จัดส่งด่วนทั่วประเทศ
