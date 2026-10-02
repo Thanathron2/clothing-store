@@ -82,13 +82,44 @@ const ProductDetail = ({ onAddToCart }) => {
     setLoading(false);
   };
 
+  const calculateCurrentPrice = (basePrice, sizeName, sizePricesMap) => {
+    if (!basePrice) return 0;
+    if (!sizeName) return basePrice;
+    
+    // 1. Check if size has explicit map price in product.size_prices
+    if (sizePricesMap && sizePricesMap[sizeName] !== undefined) {
+      return Number(sizePricesMap[sizeName]);
+    }
+    
+    // 2. Check if size string contains "+X" or specific amount e.g. "XL (+30฿)" or "2XL (+50)"
+    const plusMatch = String(sizeName).match(/\+\s*(\d+)/);
+    if (plusMatch) {
+      return basePrice + Number(plusMatch[1]);
+    }
+    
+    // 3. Check if size string is in "Size:Price" format e.g. "XL:520"
+    const colonMatch = String(sizeName).match(/:\s*(\d+)/);
+    if (colonMatch) {
+      return Number(colonMatch[1]);
+    }
+
+    const exactPriceMatch = String(sizeName).match(/(\d+)\s*฿/);
+    if (exactPriceMatch) {
+      return Number(exactPriceMatch[1]);
+    }
+    
+    return basePrice;
+  };
+
+  const currentPrice = product ? calculateCurrentPrice(product.price, selectedSize, product.size_prices) : 0;
+
   const handleAddToCart = () => {
     if (!product) return;
     
     const cartItem = {
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: currentPrice,
       image_url: product.image_url,
       selectedSize,
       selectedColor,
@@ -205,7 +236,7 @@ const ProductDetail = ({ onAddToCart }) => {
             </div>
 
             <div style={styles.priceRow}>
-              <span style={styles.price}>{product.price.toLocaleString()} ฿</span>
+              <span style={styles.price}>{currentPrice.toLocaleString()} ฿</span>
               {product.original_price && (
                 <span style={styles.originalPrice}>{product.original_price.toLocaleString()} ฿</span>
               )}
@@ -245,19 +276,40 @@ const ProductDetail = ({ onAddToCart }) => {
                   </button>
                 </div>
                 <div style={styles.pillsRow}>
-                  {sizes.map(size => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      style={{
-                        ...styles.pillBtn,
-                        ...(selectedSize === size ? styles.activePillBtn : {})
-                      }}
-                    >
-                      {selectedSize === size && <Check size={12} style={{ marginRight: '4px' }} />}
-                      {size}
-                    </button>
-                  ))}
+                  {sizes.map(size => {
+                    const sizePrice = calculateCurrentPrice(product.price, size, product.size_prices);
+                    const priceDiff = sizePrice - product.price;
+                    const isSelected = selectedSize === size;
+
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        style={{
+                          ...styles.pillBtn,
+                          ...(isSelected ? styles.activePillBtn : {}),
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}
+                      >
+                        {isSelected && <Check size={12} />}
+                        <span>{size}</span>
+                        {priceDiff > 0 && (
+                          <span style={{
+                            fontSize: '11px',
+                            padding: '2px 6px',
+                            borderRadius: '10px',
+                            background: isSelected ? 'var(--primary)' : 'rgba(226, 194, 117, 0.15)',
+                            color: isSelected ? '#000' : 'var(--primary)',
+                            fontWeight: '700'
+                          }}>
+                            +{priceDiff}฿
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}

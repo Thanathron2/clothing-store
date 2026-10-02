@@ -373,8 +373,8 @@ const AdminDashboard = ({ profile }) => {
                       <input className="form-control" value={prodForm.image_url} onChange={e => setProdForm({ ...prodForm, image_url: e.target.value })} placeholder="https://images.unsplash.com/..." />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">ไซส์ที่มี (คั่นด้วยจุลภาค)</label>
-                      <input className="form-control" value={prodForm.sizes} onChange={e => setProdForm({ ...prodForm, sizes: e.target.value })} placeholder="S, M, L, XL" />
+                      <label className="form-label">ไซส์ที่มี & บวกราคาเพิ่ม (คั่นด้วยจุลภาค)</label>
+                      <input className="form-control" value={prodForm.sizes} onChange={e => setProdForm({ ...prodForm, sizes: e.target.value })} placeholder="เช่น S, M, L, XL (+30), 2XL (+50)" />
                     </div>
                     <div className="form-group">
                       <label className="form-label">สีที่มี (คั่นด้วยจุลภาค)</label>
