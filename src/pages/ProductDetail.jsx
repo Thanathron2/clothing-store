@@ -113,6 +113,22 @@ const ProductDetail = ({ onAddToCart }) => {
 
   const currentPrice = product ? calculateCurrentPrice(product.price, selectedSize, product.size_prices) : 0;
 
+  const handleColorChange = (color, idx) => {
+    setSelectedColor(color);
+    
+    // 1. Check if product has explicit color_images map in JSON
+    if (product?.color_images && product.color_images[color]) {
+      setSelectedImage(product.color_images[color]);
+      return;
+    }
+    
+    // 2. Check gallery matching by index
+    const allImgs = [product?.image_url, ...(Array.isArray(product?.additional_images) ? product.additional_images : [])].filter(Boolean);
+    if (allImgs[idx]) {
+      setSelectedImage(allImgs[idx]);
+    }
+  };
+
   const handleAddToCart = () => {
     if (!product) return;
     
@@ -120,7 +136,7 @@ const ProductDetail = ({ onAddToCart }) => {
       id: product.id,
       name: product.name,
       price: currentPrice,
-      image_url: product.image_url,
+      image_url: selectedImage || product.image_url,
       selectedSize,
       selectedColor,
       quantity
@@ -249,10 +265,10 @@ const ProductDetail = ({ onAddToCart }) => {
               <div style={styles.optionSection}>
                 <label style={styles.optionLabel}>COLOR: <span style={styles.selectedVal}>{selectedColor}</span></label>
                 <div style={styles.pillsRow}>
-                  {colors.map(color => (
+                  {colors.map((color, idx) => (
                     <button
                       key={color}
-                      onClick={() => setSelectedColor(color)}
+                      onClick={() => handleColorChange(color, idx)}
                       style={{
                         ...styles.pillBtn,
                         ...(selectedColor === color ? styles.activePillBtn : {})

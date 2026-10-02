@@ -36,13 +36,13 @@ const SupportWidget = () => {
             >
               <div style={styles.channelIconText}>
                 <Send size={16} />
-                <span>Line Official (@auraapparel)</span>
+                <span>Line Official (@----)</span>
               </div>
               <ArrowUpRight size={14} />
             </a>
 
             <a
-              href="https://m.me"
+              href="https://web.facebook.com/heretshirt1993/"
               target="_blank"
               rel="noreferrer"
               style={{ ...styles.channelBtn, background: 'rgba(0, 132, 255, 0.12)', border: '1px solid rgba(0, 132, 255, 0.3)', color: '#0084ff' }}
