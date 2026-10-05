@@ -329,7 +329,7 @@ const Home = ({ onAddToCart }) => {
         )}
       </div>
 
-      {/* High Fashion Lookbook Showcase */}
+      {/* High Fashion Lookbook Showcase (Auto-sliding Carousel) */}
       <GlassCard style={styles.lookbookCard}>
         <div style={styles.lookbookHeader}>
           <span style={styles.lookbookSub}>EDITORIAL LOOKBOOK</span>
@@ -337,24 +337,26 @@ const Home = ({ onAddToCart }) => {
           <p style={styles.lookbookDesc}>สำรวจลุคสตรีทแฟชั่นทรงหลวมสไตล์โมเดิร์น แมตช์ลุคได้ทุกลุคอย่างสมบูรณ์แบบ</p>
         </div>
 
-        <div style={styles.lookbookGrid}>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop" alt="lookbook 1" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 01 • OVERSIZED FIT</span>
-            </div>
-          </div>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=600&auto=format&fit=crop" alt="lookbook 2" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 02 • TACTICAL CARGO</span>
-            </div>
-          </div>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=600&auto=format&fit=crop" alt="lookbook 3" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 03 • DENIM FLIGHT</span>
-            </div>
+        <div className="lookbook-marquee-container">
+          <div className="lookbook-marquee-track">
+            {(products.length > 0 ? [...products, ...products] : []).map((prod, idx) => (
+              <div 
+                key={`${prod.id}-${idx}`} 
+                style={styles.lookbookItem}
+                onClick={() => navigate(`/product/${prod.id}`)}
+              >
+                <img 
+                  src={prod.image_url} 
+                  alt={prod.name} 
+                  style={styles.lookbookImg} 
+                  loading="lazy"
+                />
+                <div style={styles.lookbookOverlay}>
+                  <span style={styles.lookbookItemName}>{prod.name}</span>
+                  <span style={styles.lookbookItemPrice}>{prod.price?.toLocaleString()} ฿</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </GlassCard>
@@ -682,27 +684,46 @@ const styles = {
   },
   lookbookItem: {
     position: 'relative',
-    height: '320px',
-    borderRadius: '12px',
+    width: '280px',
+    height: '360px',
+    borderRadius: '14px',
     overflow: 'hidden',
     border: '1px solid var(--glass-border)',
+    flexShrink: 0,
+    cursor: 'pointer',
+    transition: 'transform 0.3s ease, border-color 0.3s ease',
   },
   lookbookImg: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+    transition: 'transform 0.5s ease',
   },
   lookbookOverlay: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
-    padding: '20px',
-    color: '#fff',
-    fontSize: '12px',
+    background: 'linear-gradient(to top, rgba(9,10,13,0.95) 0%, rgba(9,10,13,0.5) 60%, transparent 100%)',
+    padding: '20px 16px 14px 16px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    textAlign: 'left',
+  },
+  lookbookItemName: {
+    color: '#ffffff',
+    fontSize: '13px',
     fontWeight: '700',
-    letterSpacing: '1px',
+    letterSpacing: '0.5px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  lookbookItemPrice: {
+    color: 'var(--primary)',
+    fontSize: '13px',
+    fontWeight: '800',
   },
   newsletterCard: {
     padding: '36px',
