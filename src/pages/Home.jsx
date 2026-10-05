@@ -358,40 +358,6 @@ const Home = ({ onAddToCart }) => {
           </div>
         </div>
       </GlassCard>
-
-      {/* Newsletter VIP Club Banner */}
-      <GlassCard style={styles.newsletterCard}>
-        <div style={styles.newsletterContent}>
-          <div style={styles.newsletterIconBg}>
-            <Mail size={24} color="var(--primary)" />
-          </div>
-          <div style={styles.newsletterTextGroup}>
-            <h3 style={styles.newsletterTitle}>JOIN THE AURA PRIVATE CLUB</h3>
-            <p style={styles.newsletterDesc}>รับส่วนลด 10% สำหรับคำสั่งซื้อแรก พร้อมสิทธิ์สั่งซื้อสินค้าลิมิเต็ดล่วงหน้าก่อนใคร</p>
-          </div>
-        </div>
-
-        <form onSubmit={handleSubscribe} style={styles.newsletterForm}>
-          <input
-            type="email"
-            className="form-control"
-            style={styles.newsletterInput}
-            placeholder="ENTER YOUR EMAIL..."
-            value={newsletterEmail}
-            onChange={(e) => setNewsletterEmail(e.target.value)}
-            required
-          />
-          <button type="submit" className="btn btn-primary" style={styles.subscribeBtn}>
-            SUBSCRIBE
-          </button>
-        </form>
-
-        {newsletterSubscribed && (
-          <div style={styles.subscribedNotice}>
-            <Check size={16} /> ยินดีต้อนรับสู่ AURA CLUB! โค้ดส่วนลดถูกส่งไปยังอีเมลของคุณแล้ว
-          </div>
-        )}
-      </GlassCard>
     </div>
   );
 };
