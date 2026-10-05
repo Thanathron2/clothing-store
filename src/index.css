@@ -341,3 +341,28 @@ h1, h2, h3, h4, h5, h6 {
 .lookbook-marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* Official Announcement Ticker Bar */
+.ticker-bar {
+  background: #000000;
+  border-bottom: 1px solid rgba(226, 194, 117, 0.2);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.ticker-highlight {
+  color: var(--primary);
+  font-weight: 800;
+}
+
