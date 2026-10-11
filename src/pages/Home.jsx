@@ -329,7 +329,7 @@ const Home = ({ onAddToCart }) => {
         )}
       </div>
 
-      {/* High Fashion Lookbook Showcase */}
+      {/* High Fashion Lookbook Showcase (Auto-sliding Carousel) */}
       <GlassCard style={styles.lookbookCard}>
         <div style={styles.lookbookHeader}>
           <span style={styles.lookbookSub}>EDITORIAL LOOKBOOK</span>
@@ -337,60 +337,28 @@ const Home = ({ onAddToCart }) => {
           <p style={styles.lookbookDesc}>สำรวจลุคสตรีทแฟชั่นทรงหลวมสไตล์โมเดิร์น แมตช์ลุคได้ทุกลุคอย่างสมบูรณ์แบบ</p>
         </div>
 
-        <div style={styles.lookbookGrid}>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop" alt="lookbook 1" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 01 • OVERSIZED FIT</span>
-            </div>
-          </div>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=600&auto=format&fit=crop" alt="lookbook 2" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 02 • TACTICAL CARGO</span>
-            </div>
-          </div>
-          <div style={styles.lookbookItem}>
-            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=600&auto=format&fit=crop" alt="lookbook 3" style={styles.lookbookImg} />
-            <div style={styles.lookbookOverlay}>
-              <span>LOOK 03 • DENIM FLIGHT</span>
-            </div>
-          </div>
-        </div>
-      </GlassCard>
-
-      {/* Newsletter VIP Club Banner */}
-      //<GlassCard style={styles.newsletterCard}>
-        <div style={styles.newsletterContent}>
-          <div style={styles.newsletterIconBg}>
-            <Mail size={24} color="var(--primary)" />
-          </div>
-          <div style={styles.newsletterTextGroup}>
-            <h3 style={styles.newsletterTitle}>JOIN THE AURA PRIVATE CLUB</h3>
-            <p style={styles.newsletterDesc}>รับส่วนลด 10% สำหรับคำสั่งซื้อแรก พร้อมสิทธิ์สั่งซื้อสินค้าลิมิเต็ดล่วงหน้าก่อนใคร</p>
+        <div className="lookbook-marquee-container">
+          <div className="lookbook-marquee-track">
+            {(products.length > 0 ? [...products, ...products] : []).map((prod, idx) => (
+              <div 
+                key={`${prod.id}-${idx}`} 
+                style={styles.lookbookItem}
+                onClick={() => navigate(`/product/${prod.id}`)}
+              >
+                <img 
+                  src={prod.image_url} 
+                  alt={prod.name} 
+                  style={styles.lookbookImg} 
+                  loading="lazy"
+                />
+                <div style={styles.lookbookOverlay}>
+                  <span style={styles.lookbookItemName}>{prod.name}</span>
+                  <span style={styles.lookbookItemPrice}>{prod.price?.toLocaleString()} ฿</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        <form onSubmit={handleSubscribe} style={styles.newsletterForm}>
-          <input
-            type="email"
-            className="form-control"
-            style={styles.newsletterInput}
-            placeholder="ENTER YOUR EMAIL..."
-            value={newsletterEmail}
-            onChange={(e) => setNewsletterEmail(e.target.value)}
-            required
-          />
-          <button type="submit" className="btn btn-primary" style={styles.subscribeBtn}>
-            SUBSCRIBE
-          </button>
-        </form>
-
-        {newsletterSubscribed && (
-          <div style={styles.subscribedNotice}>
-            <Check size={16} /> ยินดีต้อนรับสู่ เสื้อเฮีย.official! โค้ดส่วนลดถูกส่งไปยังอีเมลของคุณแล้ว
-          </div>
-        )}
       </GlassCard>
     </div>
   );
