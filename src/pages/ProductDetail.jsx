@@ -260,27 +260,7 @@ const ProductDetail = ({ onAddToCart }) => {
 
             <p style={styles.description}>{product.description}</p>
 
-            {/* Select Color */}
-            {colors.length > 0 && (
-              <div style={styles.optionSection}>
-                <label style={styles.optionLabel}>COLOR: <span style={styles.selectedVal}>{selectedColor}</span></label>
-                <div style={styles.pillsRow}>
-                  {colors.map((color, idx) => (
-                    <button
-                      key={color}
-                      onClick={() => handleColorChange(color, idx)}
-                      style={{
-                        ...styles.pillBtn,
-                        ...(selectedColor === color ? styles.activePillBtn : {})
-                      }}
-                    >
-                      {selectedColor === color && <Check size={12} style={{ marginRight: '4px' }} />}
-                      {color}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+
 
             {/* Select Size & Size Guide Trigger */}
             {sizes.length > 0 && (

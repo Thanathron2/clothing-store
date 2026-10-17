@@ -177,30 +177,7 @@ const Home = ({ onAddToCart }) => {
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div style={styles.categoryBar}>
-          <button
-            onClick={() => setSelectedCategory('All')}
-            style={{
-              ...styles.catBtn,
-              ...(selectedCategory === 'All' ? styles.catBtnActive : {})
-            }}
-          >
-            ALL ITEMS ({products.length})
-          </button>
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              style={{
-                ...styles.catBtn,
-                ...(selectedCategory === cat.id ? styles.catBtnActive : {})
-              }}
-            >
-              {cat.name.toUpperCase()}
-            </button>
-          ))}
-        </div>
+
 
         {/* Advanced Filters Expandable Panel */}
         {showAdvancedFilters && (
