@@ -35,6 +35,41 @@
   color-scheme: dark;
 }
 
+[data-theme='light'] {
+  /* Minimal Luxury Clean Light Palette */
+  --bg-primary: #f8f9fa;       /* Clean White Alabaster */
+  --bg-secondary: #ffffff;     /* Pure White Card */
+  --bg-tertiary: #f1f3f5;      /* Light Gray Section */
+  
+  --primary: #c29d44;          /* Warm Antique Gold */
+  --primary-hover: #b08d38;
+  --primary-glow: rgba(194, 157, 68, 0.25);
+  
+  --secondary: #18191c;        /* Deep Carbon Black */
+  --secondary-hover: #000000;
+  --secondary-glow: rgba(24, 25, 28, 0.15);
+  
+  --accent: #b45309;
+  
+  --text-primary: #111317;     /* High Contrast Text */
+  --text-secondary: #4b5563;   /* Slate Gray Subtitle */
+  --text-muted: #9ca3af;
+  
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.2);
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  /* Glassmorphism Styles for Light Mode */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg-hover: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-hover: rgba(194, 157, 68, 0.45);
+  --glass-glow: rgba(194, 157, 68, 0.15);
+  
+  color-scheme: light;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -50,6 +85,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Subtle Minimal Ambient Background Gradients */
@@ -81,7 +117,7 @@ body::after {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 /* Luxury Minimal Glass Card Base */
@@ -95,11 +131,19 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+[data-theme='light'] .glass-panel {
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+}
+
 .glass-panel-hover:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--glass-glow);
+}
+
+[data-theme='light'] .glass-panel-hover:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1), 0 0 20px var(--glass-glow);
 }
 
 /* Luxury Interactive Buttons */

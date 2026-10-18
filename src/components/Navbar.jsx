@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sparkles, ShoppingBag, User, LogOut, ShieldAlert, LogIn, Menu, X, Coins, Truck, ArrowRight } from 'lucide-react';
+import { Sparkles, ShoppingBag, User, LogOut, ShieldAlert, LogIn, Menu, X, Coins, Truck, ArrowRight, Sun, Moon } from 'lucide-react';
 import { supabase, isMock } from '../supabaseClient';
 import GlassCard from './GlassCard';
 
@@ -8,6 +8,16 @@ const Navbar = ({ profile, cartCount, onCartClick, onAuthClick, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const handleLogoutClick = async () => {
     await supabase.auth.signOut();
@@ -71,13 +81,27 @@ const Navbar = ({ profile, cartCount, onCartClick, onAuthClick, onLogout }) => {
 
           {/* Action Controls */}
           <div style={styles.userSection}>
+            {/* Theme Toggle Button (Light / Dark) */}
+            <button
+              onClick={toggleTheme}
+              style={styles.themeToggleBtn}
+              title={theme === 'dark' ? 'เปลี่ยนเป็นโหมดสว่าง' : 'เปลี่ยนเป็นโหมดมืด'}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun size={17} color="var(--primary)" />
+              ) : (
+                <Moon size={17} color="var(--primary)" />
+              )}
+            </button>
+
             {/* Cart Icon Button with Real-time Count Badge */}
             <button 
               onClick={onCartClick} 
               style={styles.cartBtn} 
               title="BAG"
             >
-              <ShoppingBag size={18} color="#fff" />
+              <ShoppingBag size={18} color="var(--text-primary)" />
               {cartCount > 0 && (
                 <span style={styles.cartBadge}>{cartCount}</span>
               )}
@@ -200,7 +224,7 @@ const styles = {
   logoTextMain: {
     fontSize: '20px',
     fontWeight: '900',
-    color: '#ffffff',
+    color: 'var(--text-primary)',
     letterSpacing: '3px',
   },
   logoTextSub: {
@@ -220,7 +244,7 @@ const styles = {
     borderRadius: '6px',
   },
   activeNavLink: {
-    color: '#ffffff',
+    color: 'var(--text-primary)',
     background: 'rgba(255,255,255,0.06)',
   },
   adminLink: {
@@ -235,7 +259,19 @@ const styles = {
   userSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
+    gap: '10px',
+  },
+  themeToggleBtn: {
+    background: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid var(--glass-border)',
+    width: '38px',
+    height: '38px',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
   },
   cartBtn: {
     position: 'relative',

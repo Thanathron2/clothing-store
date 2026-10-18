@@ -48,7 +48,7 @@ const styles = {
   footer: {
     marginTop: 'auto',
     borderTop: '1px solid var(--glass-border)',
-    background: 'rgba(5, 7, 20, 0.85)',
+    background: 'var(--glass-bg)',
     backdropFilter: 'blur(10px)',
     padding: '40px 20px 20px 20px',
     width: '100%',
